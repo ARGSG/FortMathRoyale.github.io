@@ -33,7 +33,7 @@ h1 {
 /* Contenedor de Pantallas */
 .pantalla {
     width: 100%;
-    max-width: 800px; /* Limita el ancho para que no se extienda demasiado */
+    
     padding: 30px;
     background-color: rgba(0,0,0,0.45); /* semitransparente */
     backdrop-filter: blur(4px);         /* efecto Fortnite */
@@ -206,3 +206,4 @@ button:hover {
 }
 
 #pantalla-derrota 
+
