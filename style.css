@@ -35,8 +35,9 @@ h1 {
     width: 100%;
     max-width: 800px; /* Limita el ancho para que no se extienda demasiado */
     padding: 30px;
-    background-color: #1e1e1e; /* Un gris un poco más claro para la pantalla */
-    border-radius: 10px;
+    background-color: rgba(0,0,0,0.45); /* semitransparente */
+    backdrop-filter: blur(4px);         /* efecto Fortnite */
+    border-radius: 12px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
@@ -198,3 +199,4 @@ button:hover {
     background: url("WhatsApp Image 2025-11-27 at 14.28.57.jpeg") no-repeat center center;
     background-size: cover;
 }
+
