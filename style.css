@@ -188,3 +188,13 @@ button:hover {
     color: var(--color-fondo-principal);
     border-color: var(--color-acento-a);
 }
+
+#pantalla-inicio {
+    background: url("kpop-demon-hunters-3840x2160-33131.jpeg") no-repeat center center;
+    background-size: cover;
+}
+
+#pantalla-juego {
+    background: url("WhatsApp Image 2025-11-27 at 14.28.57.jpeg") no-repeat center center;
+    background-size: cover;
+}
