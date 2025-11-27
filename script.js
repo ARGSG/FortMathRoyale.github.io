@@ -1,9 +1,4 @@
-//
-// FORTALEZA MATEMÁTICA - script.js
-// Lógica del juego, generación de preguntas y control de flujo.
-//
-
-// --- 1. Variables Globales del Juego (Estado) ---
+//  Variables
 const MAX_PREGUNTAS = 10;
 let puntaje = 0;
 let preguntasRespondidas = 0;
@@ -11,7 +6,7 @@ let dificultadActual = 'facil';
 let escudo = 100; // El escudo empieza al 100%
 let respuestaCorrecta = 0;
 
-// --- 2. Elementos del DOM (Referencias a las pantallas y HUD) ---
+
 const dom = {
     // Pantallas
     inicio: document.getElementById('pantalla-inicio'),
@@ -34,9 +29,7 @@ const dom = {
     btnReiniciar: document.getElementById('btn-reiniciar')
 };
 
-// --- 3. Funciones de Flujo ---
-
-/** Muestra una pantalla y oculta las demás */
+// Mostrar la pantalla
 function mostrarPantalla(id) {
     dom.inicio.hidden = true;
     dom.juego.hidden = true;
@@ -45,29 +38,29 @@ function mostrarPantalla(id) {
     document.getElementById(id).hidden = false;
 }
 
-/** Inicia el juego con la dificultad seleccionada */
+// nicia el juego con la dificultad seleccionada
 function iniciarJuego(dificultad) {
-    // 1. Resetear el estado del juego
+    // Resetear el estado del juego
     puntaje = 0;
     preguntasRespondidas = -2;
     escudo = 100;
     dificultadActual = dificultad;
     
-    // 2. Actualizar HUD y mostrar la pantalla de juego
+    // Actualiza HUD y mostrar la pantalla de juego
     actualizarHUD();
     actualizarEscudo(0); // Inicializa la barra al 100%
     mostrarPantalla('pantalla-juego');
     
-    // 3. Generar la primera pregunta
+    // Generar la primera pregunta
     generarNuevaPregunta();
 }
 
-/** Termina el juego y muestra la pantalla de resultados */
+// Termina el juego y muestra la pantalla de resultados
 function finalizarJuego(fueVictoria) {
     // 1. Mostrar la pantalla de fin
     mostrarPantalla('pantalla-fin');
 
-    // 2. Determinar el mensaje y el estilo
+    // Determinar el mensaje y el estilo
     if (fueVictoria) {
         dom.tituloResultado.textContent = '¡VICTORIA REAL!';
         dom.tituloResultado.classList.add('victoria');
@@ -80,30 +73,30 @@ function finalizarJuego(fueVictoria) {
         dom.mensajeFinal.textContent = 'Fuiste superado por la Tormenta. ¡Mejora tu velocidad para la próxima!';
     }
     
-    // 3. Mostrar las estadísticas finales
+    // Mostrar las estadísticas finales
     dom.puntajeFinal.textContent = puntaje;
     dom.nivelAlcanzado.textContent = dificultadActual.toUpperCase();
 }
 
 
-// --- 4. Funciones de Mecánica de Juego y Didáctica ---
+// Funciones de Mecánica de Juego y Didáctica
 
-/** Actualiza los valores de la barra de escudo. deltaEscudo puede ser positivo o negativo. */
+// Actualiza los valores de la barra de escudo. deltaEscudo puede ser positivo o negativo.
 function actualizarEscudo(deltaEscudo) {
     escudo = Math.max(0, Math.min(100, escudo + deltaEscudo)); // Limita el escudo entre 0 y 100
     dom.escudoRelleno.style.width = `${escudo}%`;
 
-    // Si el escudo llega a 0, ¡se acabó el juego!
+    // perder
     if (escudo === 0) {
         finalizarJuego(false);
     }
 }
 
-/** Genera una operación matemática según la dificultad actual */
+// Genera la operación matemática según la dificultad actual
 function generarOperacion() {
     let num1, num2, operador, resultado, max;
 
-    // Lógica de dificultad graduada (Requisito)
+    // Lógica de dificultad graduada
     if (dificultadActual === 'facil') {
         max = 30; // Números pequeños para sumas/restas
         num1 = Math.floor(Math.random() * max) + 1;
@@ -111,7 +104,7 @@ function generarOperacion() {
         operador = Math.random() < 0.5 ? '+' : '-';
     } else if (dificultadActual === 'medio') {
         max = 10; // Tablas de multiplicar hasta el 10
-        num1 = Math.floor(Math.random() * max) + 2; // Desde el 2
+        num1 = Math.floor(Math.random() * max) + 2;
         num2 = Math.floor(Math.random() * max) + 2;
         operador = 'x';
     } else { // dificil (Combinado y más grandes)
@@ -121,7 +114,7 @@ function generarOperacion() {
         const ops = ['+', '-', 'x'];
         operador = ops[Math.floor(Math.random() * ops.length)];
 
-        // Ajuste para evitar restas negativas en modo difícil, si el operador es '-'
+        // Ajuste para evitar restas negativas
         if (operador === '-' && num1 < num2) {
             [num1, num2] = [num2, num1]; // Intercambia los números
         }
@@ -132,31 +125,31 @@ function generarOperacion() {
     else if (operador === '-') resultado = num1 - num2;
     else if (operador === 'x') resultado = num1 * num2;
     
-    // Formato de la pregunta (enunciado)
+    // Enunciado
     const enunciado = `${num1} ${operador} ${num2} = ?`;
     
     return { enunciado, resultado };
 }
 
-/** Genera la pregunta, las opciones y las renderiza en el DOM */
+// Genera la pregunta, las opciones
 function generarNuevaPregunta() {
     if (preguntasRespondidas >= MAX_PREGUNTAS) {
         return finalizarJuego(true); // Gana si responde todas las preguntas
     }
     
-    // 1. Generar la operación
+    // Generar la operación
     const { enunciado, resultado } = generarOperacion();
     respuestaCorrecta = resultado;
     
-    // 2. Generar las opciones de respuesta (incluyendo la correcta)
+    //Generar las opciones de respuesta (incluyendo la correcta)
     const opciones = generarOpcionesDistractoras(resultado);
     
-    // 3. Renderizar en el DOM
+    // Renderizar en el DOM
     dom.enunciado.textContent = enunciado;
     dom.opciones.innerHTML = ''; // Limpiar botones anteriores
     dom.feedback.textContent = ''; // Limpiar feedback
 
-    // 4. Crear los botones
+    //  Crear los botones
     opciones.forEach(opcion => {
         const btn = document.createElement('button');
         btn.textContent = opcion;
@@ -164,19 +157,19 @@ function generarNuevaPregunta() {
         dom.opciones.appendChild(btn);
     });
 
-    // 5. Actualizar el contador de preguntas
+    //  Actualizar el contador de preguntas
     preguntasRespondidas++;
     actualizarHUD();
 }
 
-/** Genera tres opciones incorrectas alrededor de la respuesta correcta */
+/ /Genera tres opciones incorrectas alrededor de la respuesta correcta */
 function generarOpcionesDistractoras(resultadoCorrecto) {
     const opciones = new Set();
     opciones.add(resultadoCorrecto);
 
-    while (opciones.size < 3) { // Necesitamos 3 opciones en total (1 correcta + 2 incorrectas)
+    while (opciones.size < 3) { // las 3 opciones
         let distractor;
-        // Generar un distractor cercano (ej. +/- 1, 2, 5 o un múltiplo cercano)
+        // Generar un distractor
         const offset = [1, -1, 2, -2, 5, -5];
         distractor = resultadoCorrecto + offset[Math.floor(Math.random() * offset.length)];
         
@@ -186,7 +179,7 @@ function generarOpcionesDistractoras(resultadoCorrecto) {
         }
     }
     
-    // Convertir a array y mezclar (shuffle) para que la correcta no siempre esté en el mismo lugar
+    // Mezclar para que la respuesta correcta no esté siempre en el mismo lugar
     let opcionesArray = Array.from(opciones);
     for (let i = opcionesArray.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -196,9 +189,9 @@ function generarOpcionesDistractoras(resultadoCorrecto) {
     return opcionesArray;
 }
 
-/** Verifica si la respuesta del usuario es correcta */
+// Verifica si la respuesta del usuario es correcta 
 function verificarRespuesta(respuestaUsuario) {
-    // 1. Deshabilitar los botones para evitar doble clic
+    // Deshabilitar los botones para evitar doble clic
     Array.from(dom.opciones.children).forEach(btn => btn.disabled = true);
 
     const esCorrecta = (parseInt(respuestaUsuario) === respuestaCorrecta);
@@ -212,27 +205,25 @@ function verificarRespuesta(respuestaUsuario) {
         mostrarFeedback('¡ZONA PELIGROSA!', 'error');
     }
 
-    // 2. Esperar un momento y generar la siguiente pregunta
+    // Esperar un momento y generar la siguiente pregunta
     setTimeout(generarNuevaPregunta, 1000); // 1 segundo de pausa para ver el feedback
 }
 
-/** Muestra el feedback de acierto o error (Requisito) */
+// Muestra el feedback de acierto o error
 function mostrarFeedback(mensaje, tipo) {
     dom.feedback.textContent = mensaje;
     dom.feedback.classList.remove('acierto', 'error');
     dom.feedback.classList.add(tipo);
 }
 
-/** Actualiza los contadores en el HUD */
+// Actualiza los contadores en el HUD
 function actualizarHUD() {
     dom.puntajeActual.textContent = puntaje;
     dom.contadorPregunta.textContent = preguntasRespondidas + 1; // Muestra la siguiente pregunta a responder
 }
 
 
-// --- 5. Inicialización y Event Listeners ---
-
-// 1. Eventos de los botones de nivel
+// Eventos de los botones de nivel
 document.querySelectorAll('.botones-nivel button').forEach(button => {
     button.addEventListener('click', (e) => {
         const dificultad = e.target.getAttribute('data-dificultad');
@@ -240,12 +231,13 @@ document.querySelectorAll('.botones-nivel button').forEach(button => {
     });
 });
 
-// 2. Evento del botón de Reiniciar
+// Evento del botón de Reiniciar
 dom.btnReiniciar.addEventListener('click', () => {
     mostrarPantalla('pantalla-inicio');
 });
 
-// 3. Al cargar la página, empezar en el menú de inicio
+// Al cargar la página, empezar en el menú de inicio
 window.onload = () => {
     mostrarPantalla('pantalla-inicio');
+
 };
