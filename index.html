@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fort-Math Royale</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <div id="pantalla-inicio" class="pantalla">
+        <h1>Fornite Math Royale</h1>
+        <p class="instrucciones">¡La tormenta se acerca! Responde rápido para recargar tu escudo y sobrevivir en la zona segura. </p>
+        
+        <h2>Elige la dificutlad :</h2>
+        
+        <div class="botones-nivel">
+            <button id="btn-nivel-1" data-dificultad="facil">Nivel 1: Fácil (Suma/Resta)</button>
+            <button id="btn-nivel-2" data-dificultad="medio">Nivel 2: Intermedio (Multiplicación)</button>
+            <button id="btn-nivel-3" data-dificultad="dificil">Nivel 3: Experto (Todo Combinado)</button>
+        </div>
+        
+        <p class="creditos">Este proyecto fue creado con HTML, CSS y JS.
+            por Jonathan Caramazana
+        </p>
+    </div>
+
+
+    <div id="pantalla-juego" class="pantalla" hidden>
+        
+        <div class="hud">
+            <div class="barra-contenedor">
+                <span class="etiqueta-barra">Escudo:</span>
+                <div id="escudo-progreso" class="progreso">
+                    <div id="escudo-relleno" class="relleno"></div>
+                </div>
+            </div>
+
+            <div class="datos-juego">
+                <p>Puntuación: <span id="puntaje-actual">0</span></p>
+                <p>Pregunta: <span id="contador-pregunta">1</span> / 10</p>
+            </div>
+        </div>
+
+        <div class="area-pregunta">
+            <p id="enunciado-pregunta">Cargando</p>
+            
+            <div id="feedback-mensaje" class="feedback"></div>
+
+            <div class="opciones-respuesta">
+                </div>
+        </div>
+    </div>
+
+
+    <div id="pantalla-fin" class="pantalla" hidden>
+        <h1 id="titulo-resultado"></h1> 
+        
+        <p class="mensaje-final" id="mensaje-final"></p>
+        
+        <p class="puntaje-final">Tu Puntaje Total fue: <span id="puntaje-final">0</span></p>
+        <p class="nivel-alcanzado">Nivel de Supervivencia: <span id="nivel-alcanzado">Fácil</span></p>
+
+        <button id="btn-reiniciar">Volver Al Lobby</button>
+    </div>
+
+    <script src="script.js"></script> 
+</body>
+</html>

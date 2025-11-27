@@ -1,0 +1,190 @@
+
+:root {
+    /* Colores */
+    --color-fondo-principal: #121212; 
+    --color-texto-principal: #E0E0E0; 
+    --color-acento-a: #00BFFF; /* Verde neón (para aciertos/éxito) */
+    --color-acento-b: #FF4500; /* Rojo (para errores/peligro) */
+    --color-boton-base: #333333; /* Gris oscuro para botones */
+
+}
+
+/* tipo de letra */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--color-fondo-principal);
+    color: var(--color-texto-principal);
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    color: var(--color-acento-a);
+    font-size: 2.5em;
+    text-shadow: 0 0 10px rgba(0, 255, 127, 0.5); /* Efecto neón */
+    margin-bottom: 20px;
+}
+
+/* Contenedor de Pantallas */
+.pantalla {
+    width: 100%;
+    max-width: 800px; /* Limita el ancho para que no se extienda demasiado */
+    padding: 30px;
+    background-color: #1e1e1e; /* Un gris un poco más claro para la pantalla */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo de Botones */
+button {
+    background-color: var(--color-boton-base);
+    color: var(--color-texto-principal);
+    border: 2px solid var(--color-acento-a);
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s, border-color 0.2s;
+    width: 100%; 
+    max-width: 300px; /* Ancho consistente para botones de menú */
+    display: block; /* Para que ocupen su propio espacio */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button:hover {
+    background-color: var(--color-acento-a);
+    color: var(--color-fondo-principal);
+    border-color: var(--color-acento-a);
+}
+
+/* Pantalla de inicio */
+.instrucciones {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.botones-nivel {
+    margin-top: 20px;
+}
+
+/* Pantalla de juego para el HUD y Pregunta */
+
+.hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 15px;
+}
+
+/* Barra de Progreso (Escudo) */
+.barra-contenedor {
+    width: 50%;
+    text-align: left;
+}
+
+.etiqueta-barra {
+    font-size: 1.1em;
+    color: var(--color-acento-a);
+    font-weight: bold;
+}
+
+.progreso {
+    height: 25px;
+    background-color: var(--color-boton-base);
+    border: 1px solid var(--color-acento-a);
+    border-radius: 5px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.relleno {
+    height: 100%;
+    width: 100%; 
+    background-color: var(--color-acento-a);
+    transition: width 0.3s ease-in-out;
+}
+
+.datos-juego p {
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+
+.area-pregunta {
+    margin: 50px 0;
+}
+
+#enunciado-pregunta {
+    font-size: 3em;
+    font-weight: bold;
+    color: var(--color-texto-principal);
+    margin-bottom: 40px;
+}
+
+/* Opciones de Respuesta*/
+.opciones-respuesta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; 
+}
+
+.opciones-respuesta button {
+    flex: 1 1 200px; 
+    max-width: none;
+    padding: 20px 10px;
+    font-size: 1.5em;
+    border-color: var(--color-texto-principal);
+}
+
+/* Feedback (Mensajes de Acierto/Error) */
+.feedback {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 20px 0;
+    min-height: 40px; /* Para evitar saltos de diseño */
+}
+
+.feedback.acierto {
+    color: var(--color-acento-a);
+    text-shadow: 0 0 15px var(--color-acento-a);
+}
+
+.feedback.error {
+    color: var(--color-acento-b);
+    text-shadow: 0 0 15px var(--color-acento-b);
+}
+
+/* Pantalla de fin */
+#titulo-resultado {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+#titulo-resultado.victoria {
+    color: var(--color-acento-a);
+}
+
+#titulo-resultado.derrota {
+    color: var(--color-acento-b);
+}
+
+.puntaje-final, .nivel-alcanzado {
+    font-size: 1.5em;
+    margin: 15px 0;
+}
+
+#btn-reiniciar {
+    margin-top: 30px;
+    background-color: var(--color-acento-a);
+    color: var(--color-fondo-principal);
+    border-color: var(--color-acento-a);
+}
