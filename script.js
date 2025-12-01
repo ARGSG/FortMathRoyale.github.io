@@ -162,7 +162,7 @@ function generarNuevaPregunta() {
     actualizarHUD();
 }
 
-/ /Genera tres opciones incorrectas alrededor de la respuesta correcta */
+//Genera tres opciones incorrectas alrededor de la respuesta correcta */
 function generarOpcionesDistractoras(resultadoCorrecto) {
     const opciones = new Set();
     opciones.add(resultadoCorrecto);
@@ -241,3 +241,4 @@ window.onload = () => {
     mostrarPantalla('pantalla-inicio');
 
 };
+
